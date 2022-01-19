@@ -15,12 +15,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.UUID;
 
 public class MessageHandler {
-    public MessageHandler() {
-        MinecraftForge.EVENT_BUS.register(this);
+    static void init() {
+        MinecraftForge.EVENT_BUS.register(MessageHandler.class);
+        System.out.println("[ISC] Registering...");
     }
 
     @SubscribeEvent
-    public void onChatMessage(final ClientChatEvent event) {
+    public static void onChatMessage(final ClientChatEvent event) {
         if (event.getMessage().startsWith("!")) {
             if (event.getMessage().startsWith("!getchestcode")) {
                 String[] cmd = event.getMessage().split(" ");
@@ -36,12 +37,15 @@ public class MessageHandler {
                     sendMessage(player, message1, player.getUUID());
                     sendMessage(player, message2, player.getUUID());
                 }
+
+                System.out.println("[ISC] Got Message!");
+
                 event.setCanceled(true);
             }
         }
     }
 
-    public void sendMessage(LocalPlayer player, String message, UUID uuid) {
+    public static void sendMessage(LocalPlayer player, String message, UUID uuid) {
         player.sendMessage(new TextComponent(message), uuid);
     }
 }

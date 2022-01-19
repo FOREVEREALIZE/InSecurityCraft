@@ -11,6 +11,7 @@ public class Utils {
         ClientLevel world = Minecraft.getInstance().level;
         assert world != null;
         BlockState block = world.getBlockState(new BlockPos(x, y, z));
+        System.out.println(block.getProperties());
         block.getProperties().forEach((prop) -> {
             System.out.println(prop.getName() + ": " + prop.getValue(prop.getName()));
         });
